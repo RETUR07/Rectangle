@@ -85,26 +85,28 @@ export class RectangleComponent {
     const speed = 100;
     if (this.IsEdited && this.rectangleCreated)
     {
+      const xChange = (this.xResizeStart - event.clientX)/speed;
       if(Math.abs(this.xResizeStart - this.rectangle.rectX1) > Math.abs(this.xResizeStart - this.rectangle.rectX2))
       {
-        this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 + (this.xResizeStart - event.clientX)/speed);
-        this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 - (this.xResizeStart - event.clientX)/speed);
+        this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 + xChange);
+        this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 - xChange);
       }
       else
       {
-        this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - (this.xResizeStart - event.clientX)/speed);
-        this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 + (this.xResizeStart - event.clientX)/speed);
+        this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - xChange);
+        this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 + xChange);
       }
 
+      const yChange = (this.yResizeStart - event.clientY)/speed;
       if (Math.abs(this.yResizeStart - this.rectangle.rectY1) > Math.abs(this.yResizeStart - this.rectangle.rectY2))
       {
-        this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 + (this.yResizeStart - event.clientY)/speed);
-        this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 - (this.yResizeStart - event.clientY)/speed);
+        this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 + yChange);
+        this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 - yChange);
       }
       else
       {
-        this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 - (this.yResizeStart - event.clientY)/speed);
-        this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 + (this.yResizeStart - event.clientY)/speed);
+        this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 - yChange);
+        this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 + yChange);
       }
     }
   }
