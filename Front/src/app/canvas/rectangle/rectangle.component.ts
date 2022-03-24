@@ -92,7 +92,7 @@ export class RectangleComponent {
         this.rectangle.rectY2 = event.clientY;
       }
       else{
-        const speed = 40;
+        const speed = 1;
         const xChange = (this.xResizeStart - event.clientX)/speed;
         if(Math.abs(this.xResizeStart - this.rectangle.rectX1) > Math.abs(this.xResizeStart - this.rectangle.rectX2))
         {
@@ -102,6 +102,7 @@ export class RectangleComponent {
         {          
           this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - xChange);
         }
+        this.xResizeStart = event.clientX;
 
         const yChange = (this.yResizeStart - event.clientY)/speed;
         if (Math.abs(this.yResizeStart - this.rectangle.rectY1) > Math.abs(this.yResizeStart - this.rectangle.rectY2))
@@ -112,6 +113,7 @@ export class RectangleComponent {
         {
           this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 - yChange);
         }
+        this.yResizeStart = event.clientY;
       }
   }
 }
