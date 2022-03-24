@@ -1,0 +1,14 @@
+    <svg:rect 
+          (svg_mousedown)="onMouseDown($event)"
+          (svg_mouseup)="onMouseUp($event)"
+          (svg_mousemove)="onMouseMove($event)"
+          [attr.x]="rectangle.getX()" 
+          [attr.y]="rectangle.getY()" 
+          [attr.width]="rectangle.getWidth()" 
+          [attr.height]="rectangle.getHeight()" 
+          fill="white" 
+          
+          stroke="black" 
+          fill-opacity="0.1" 
+          stroke-opacity="1" ></rect>
+    <svg:text [attr.x]="rectangle.getX()" [attr.y]="rectangle.getY()" class="small">{{rectangle.getPerimeter()}}</svg:text>
