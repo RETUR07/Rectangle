@@ -12,6 +12,12 @@ export class CanvasComponent {
   onMouseDownSubject: Subject<any> = new Subject<any>();
   onMouseUpSubject: Subject<any> = new Subject<any>();
   onMouseMoveSubject: Subject<any> = new Subject<any>();
+  onMouseLeaveSubject: Subject<any> = new Subject<any>();
+
+  onMouseLeave(event: any)
+  {
+    this.onMouseLeaveSubject.next(event);
+  }
 
   onMouseDown(event: any)
   {

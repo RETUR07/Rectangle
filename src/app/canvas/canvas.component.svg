@@ -1,11 +1,12 @@
 <svg width="800" height="600" style="border:1px solid black"
           (mousedown)="onMouseDown($event)"
           (mouseup)="onMouseUp($event)"
+          (mouseleave)="onMouseLeave($event)"
           (mousemove)="onMouseMove($event)">
   <g app-rectangle
       [onMouseDownEvent]="onMouseDownSubject.asObservable()" 
+      [onMouseLeaveEvent]="onMouseLeaveSubject.asObservable()" 
       [onMouseUpEvent]="onMouseUpSubject.asObservable()" 
       [onMouseMoveEvent]="onMouseMoveSubject.asObservable()">
-      
   </g>
 </svg>

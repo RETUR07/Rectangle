@@ -30,21 +30,30 @@ export class RectangleComponent {
   private onMouseDownEventSubscription: Subscription;
   private onMouseUpEventSubscription: Subscription;
   private onMouseMoveEventSubscription: Subscription;
+  private onMouseLeaveEventSubscription: Subscription;
 
   @Input() onMouseDownEvent: Observable<any>;
   @Input() onMouseUpEvent: Observable<any>;
   @Input() onMouseMoveEvent: Observable<any>;
+  @Input() onMouseLeaveEvent: Observable<any>;
 
   ngOnInit(){
     this.onMouseDownEventSubscription = this.onMouseDownEvent.subscribe((event) => this.onMouseDown(event));
     this.onMouseUpEventSubscription = this.onMouseUpEvent.subscribe((event) => this.onMouseUp(event));
     this.onMouseMoveEventSubscription = this.onMouseMoveEvent.subscribe((event) => this.onMouseMove(event));
+    this.onMouseLeaveEventSubscription = this.onMouseLeaveEvent.subscribe((event) => this.onMouseLeave(event));
   }
 
   ngOnDestroy() {
     this.onMouseDownEventSubscription.unsubscribe();
     this.onMouseUpEventSubscription.unsubscribe();
     this.onMouseMoveEventSubscription.unsubscribe();
+    this.onMouseLeaveEventSubscription.unsubscribe();
+  }
+
+  onMouseLeave(event: any)
+  {
+    this.onMouseUp(event);
   }
 
   onMouseDown(event: any)
@@ -77,37 +86,32 @@ export class RectangleComponent {
 
   onMouseMove(event: any)
   {
-    if (this.IsEdited && !this.rectangleCreated){
-      this.rectangle.rectX2 = event.clientX;
-      this.rectangle.rectY2 = event.clientY;
-    }
+    if (this.IsEdited)
+      if (!this.rectangleCreated){
+        this.rectangle.rectX2 = event.clientX;
+        this.rectangle.rectY2 = event.clientY;
+      }
+      else{
+        const speed = 40;
+        const xChange = (this.xResizeStart - event.clientX)/speed;
+        if(Math.abs(this.xResizeStart - this.rectangle.rectX1) > Math.abs(this.xResizeStart - this.rectangle.rectX2))
+        {
+          this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 - xChange);
+        }
+        else
+        {          
+          this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - xChange);
+        }
 
-    const speed = 100;
-    if (this.IsEdited && this.rectangleCreated)
-    {
-      const xChange = (this.xResizeStart - event.clientX)/speed;
-      if(Math.abs(this.xResizeStart - this.rectangle.rectX1) > Math.abs(this.xResizeStart - this.rectangle.rectX2))
-      {
-        this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 + xChange);
-        this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 - xChange);
+        const yChange = (this.yResizeStart - event.clientY)/speed;
+        if (Math.abs(this.yResizeStart - this.rectangle.rectY1) > Math.abs(this.yResizeStart - this.rectangle.rectY2))
+        {
+          this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 - yChange);
+        }
+        else
+        {
+          this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 - yChange);
+        }
       }
-      else
-      {
-        this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - xChange);
-        this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 + xChange);
-      }
-
-      const yChange = (this.yResizeStart - event.clientY)/speed;
-      if (Math.abs(this.yResizeStart - this.rectangle.rectY1) > Math.abs(this.yResizeStart - this.rectangle.rectY2))
-      {
-        this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 + yChange);
-        this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 - yChange);
-      }
-      else
-      {
-        this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 - yChange);
-        this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 + yChange);
-      }
-    }
   }
 }
