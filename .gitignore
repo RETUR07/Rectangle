@@ -483,7 +483,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-.angular/cache
+Front/.angular/cache
 .sass-cache/
 connect.lock
 coverage
