@@ -10,8 +10,9 @@ namespace API.Extensions
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IDataService, DataService>();
-            services.AddSingleton<IRectangleRepository, RectangleRepository>();
-            services.AddSingleton<IRepositoryManager, RepositoryManager>();
+            services.AddScoped<IRectangleRepository, RectangleRepository>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+            services.AddSingleton<IFileManager, FileManager>();
         }
     }
 }

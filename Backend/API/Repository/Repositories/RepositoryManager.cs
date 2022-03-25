@@ -10,12 +10,16 @@ namespace Repository.Repositories
     public class RepositoryManager : IRepositoryManager
     {
         private IRectangleRepository _rectangleRepository;
+
+        public RepositoryManager(IRectangleRepository rectangleRepository)
+        {
+            _rectangleRepository = rectangleRepository;
+        }
+
         public IRectangleRepository RectangleRepository
         {
             get
             {
-                if (_rectangleRepository == null)
-                    _rectangleRepository = new RectangleRepository();
                 return _rectangleRepository;
             }
         }
