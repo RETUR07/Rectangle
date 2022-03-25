@@ -8,6 +8,9 @@ import { RectangleHttpService } from 'src/app/services/rectangleHttpService';
   styleUrls: ['./rectangle.component.css']
 })
 export class RectangleComponent {  
+  public canvasX:number = 600;
+  public canvasY:number = 600;
+
   public IsEdited: boolean = false;
   public rectangle: Rectangle = new Rectangle();
   public rectangleCreated = false;
@@ -57,6 +60,15 @@ export class RectangleComponent {
 
   onMouseMove(event: any)
   {
+    const invisible_border = 10;
+    if(event.clientX + invisible_border > this.canvasX || 
+       event.clientX - invisible_border < 0 ||
+       event.clientY + invisible_border > this.canvasY || 
+       event.clientY - invisible_border < 0
+       )
+       {
+         return;
+       }
     if (this.IsEdited)
       if (!this.rectangleCreated){
         this.rectangle.rectX2 = event.clientX;
@@ -65,25 +77,33 @@ export class RectangleComponent {
       else{
         const speed = 1;
         const xChange = (this.xResizeStart - event.clientX)/speed;
-        if(Math.abs(this.xResizeStart - this.rectangle.rectX1) > Math.abs(this.xResizeStart - this.rectangle.rectX2))
+        const yChange = (this.yResizeStart - event.clientY)/speed;
+
+        if(Math.abs(this.rectangle.rectX2 - event.clientX) < 20 && Math.abs(this.rectangle.rectY2 - event.clientY) < 20)
         {
           this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 - xChange);
-        }
-        else
-        {          
-          this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - xChange);
-        }
-        this.xResizeStart = event.clientX;
-
-        const yChange = (this.yResizeStart - event.clientY)/speed;
-        if (Math.abs(this.yResizeStart - this.rectangle.rectY1) > Math.abs(this.yResizeStart - this.rectangle.rectY2))
-        {
           this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 - yChange);
         }
-        else
+
+        if(Math.abs(this.rectangle.rectX1 - event.clientX) < 20 && Math.abs(this.rectangle.rectY1 - event.clientY) < 20)
         {
+          this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - xChange);
           this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 - yChange);
         }
+
+        if(Math.abs(this.rectangle.rectX1 - event.clientX) < 20 && Math.abs(this.rectangle.rectY2 - event.clientY) < 20)
+        {
+          this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - xChange);
+          this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 - yChange);
+        }
+
+        if(Math.abs(this.rectangle.rectX2 - event.clientX) < 20 && Math.abs(this.rectangle.rectY1 - event.clientY) < 20)
+        {
+          this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 - xChange);
+          this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 - yChange);
+        }
+
+        this.xResizeStart = event.clientX;
         this.yResizeStart = event.clientY;
       }
   }
