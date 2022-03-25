@@ -16,7 +16,7 @@ export class RectangleHttpService {
        
        return this.http.GetData("/Data").pipe(
            map(data => {
-            let rectangle: Rectangle; 
+            let rectangle: Rectangle = new Rectangle(); 
             rectangle.rectX1 = +data.x;
             rectangle.rectX2 = +data.x + +data.width;
             rectangle.rectY1 = +data.y;
