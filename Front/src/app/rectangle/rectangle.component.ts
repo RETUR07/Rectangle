@@ -84,18 +84,21 @@ export class RectangleComponent {
           this.rectangle.rectX2 = Math.abs(this.rectangle.rectX2 - xChange);
           this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 - yChange);
         }
+        else
 
         if(Math.abs(this.rectangle.rectX1 - event.clientX) < 20 && Math.abs(this.rectangle.rectY1 - event.clientY) < 20)
         {
           this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - xChange);
           this.rectangle.rectY1 = Math.abs(this.rectangle.rectY1 - yChange);
         }
+        else
 
         if(Math.abs(this.rectangle.rectX1 - event.clientX) < 20 && Math.abs(this.rectangle.rectY2 - event.clientY) < 20)
         {
           this.rectangle.rectX1 = Math.abs(this.rectangle.rectX1 - xChange);
           this.rectangle.rectY2 = Math.abs(this.rectangle.rectY2 - yChange);
         }
+        else
 
         if(Math.abs(this.rectangle.rectX2 - event.clientX) < 20 && Math.abs(this.rectangle.rectY1 - event.clientY) < 20)
         {
