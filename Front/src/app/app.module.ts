@@ -5,8 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { CanvasComponent } from './canvas/canvas.component';
 
-import { HttpService } from './services/httpService.service';
-import { RectangleComponent } from './canvas/rectangle/rectangle.component'
+import { RectangleComponent } from './rectangle/rectangle.component'
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { RectangleComponent } from './canvas/rectangle/rectangle.component'
     BrowserModule,
     HttpClientModule,
   ],
-  providers: [HttpService],
+  providers: [{ provide: 'API_URL', useValue: environment.apiURL }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

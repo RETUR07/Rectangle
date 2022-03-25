@@ -1,0 +1,20 @@
+<app-canvas
+            (mousedown)="onMouseDown($event)"
+            (mouseup)="onMouseUp($event)"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)"
+      >
+      <svg:rect
+            [attr.x]="rectangle.getX()" 
+            [attr.y]="rectangle.getY()" 
+            [attr.width]="rectangle.getWidth()" 
+            [attr.height]="rectangle.getHeight()" 
+            fill="white" 
+            
+            stroke="black" 
+            fill-opacity="0.1" 
+            stroke-opacity="1" >
+      </rect>
+      <svg:text [attr.x]="rectangle.getX()" [attr.y]="rectangle.getY()" class="small">{{rectangle.getPerimeter()}}</svg:text>
+</app-canvas>
+

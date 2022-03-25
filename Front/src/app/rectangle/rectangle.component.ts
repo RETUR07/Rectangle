@@ -1,10 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { Rectangle } from 'src/app/Models/Rectangle.model';
-import { HttpService } from 'src/app/services/httpService.service';
+import { Component, Output } from '@angular/core';
+import { Rectangle } from 'src/app/models/rectangle.model';
+import { RectangleHttpService } from 'src/app/services/rectangleHttpService';
 
 @Component({
-  selector: '[app-rectangle]',
+  selector: 'app-rectangle',
   templateUrl: './rectangle.component.svg',
   styleUrls: ['./rectangle.component.css']
 })
@@ -16,39 +15,14 @@ export class RectangleComponent {
   public xResizeStart: number;
   public yResizeStart: number;
 
-  constructor (private http: HttpService)
+  constructor (private http: RectangleHttpService)
   {
-    this.http.GetRectangle().subscribe((data:any)=>{
-      this.rectangle.rectX1 = +data.x;
-      this.rectangle.rectX2 = +data.x + +data.width;
-      this.rectangle.rectY1 = +data.y;
-      this.rectangle.rectY2 = +data.y + +data.height;
-      this.rectangleCreated = true;
-    });
-  }
-
-  private onMouseDownEventSubscription: Subscription;
-  private onMouseUpEventSubscription: Subscription;
-  private onMouseMoveEventSubscription: Subscription;
-  private onMouseLeaveEventSubscription: Subscription;
-
-  @Input() onMouseDownEvent: Observable<any>;
-  @Input() onMouseUpEvent: Observable<any>;
-  @Input() onMouseMoveEvent: Observable<any>;
-  @Input() onMouseLeaveEvent: Observable<any>;
-
-  ngOnInit(){
-    this.onMouseDownEventSubscription = this.onMouseDownEvent.subscribe((event) => this.onMouseDown(event));
-    this.onMouseUpEventSubscription = this.onMouseUpEvent.subscribe((event) => this.onMouseUp(event));
-    this.onMouseMoveEventSubscription = this.onMouseMoveEvent.subscribe((event) => this.onMouseMove(event));
-    this.onMouseLeaveEventSubscription = this.onMouseLeaveEvent.subscribe((event) => this.onMouseLeave(event));
-  }
-
-  ngOnDestroy() {
-    this.onMouseDownEventSubscription.unsubscribe();
-    this.onMouseUpEventSubscription.unsubscribe();
-    this.onMouseMoveEventSubscription.unsubscribe();
-    this.onMouseLeaveEventSubscription.unsubscribe();
+    this.http.GetRectangle().subscribe((rec) =>
+      {
+        this.rectangle = rec;
+        this.rectangleCreated = true;
+      }
+    );
   }
 
   onMouseLeave(event: any)
@@ -78,13 +52,7 @@ export class RectangleComponent {
   {
     this.rectangleCreated = true;
     this.IsEdited = false;
-    this.http.SaveRectangle(
-      {
-      x: this.rectangle.getX(),
-      y: this.rectangle.getY(), 
-      height: this.rectangle.getHeight(), 
-      width: this.rectangle.getWidth()
-    }).subscribe();
+    this.http.SaveRectangle(this.rectangle).subscribe();
   }
 
   onMouseMove(event: any)
