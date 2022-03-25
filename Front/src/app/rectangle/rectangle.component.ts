@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Rectangle } from 'src/app/models/rectangle.model';
 import { RectangleHttpService } from 'src/app/services/rectangleHttpService';
 

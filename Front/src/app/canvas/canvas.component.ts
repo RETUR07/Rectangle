@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Injectable } from '@angular/core';
 
 @Component({
@@ -8,4 +8,6 @@ import { Injectable } from '@angular/core';
 })
 @Injectable()
 export class CanvasComponent {
+  @Input() width = 300;
+  @Input() height = 300;
 }
