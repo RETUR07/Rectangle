@@ -10,7 +10,7 @@ namespace Services.Contracts
 {
     public interface IDataService
     {
-        public Task<RectangleResponse> GetRectangle();
-        public Task SaveRectangle(RectangleForm rectangle);
+        Task<RectangleResponse> GetRectangleAsync();
+        Task SaveRectangleAsync(RectangleForm rectangle);
     }
 }

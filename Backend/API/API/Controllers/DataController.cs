@@ -19,7 +19,7 @@ namespace API.Controllers
         {
             try
             {
-                var res = await _dataService.GetRectangle();
+                var res = await _dataService.GetRectangleAsync();
                 return Ok(res);
             }
             catch (Exception ex)
@@ -34,7 +34,7 @@ namespace API.Controllers
         {
             try
             {
-                await _dataService.SaveRectangle(rectangle);
+                await _dataService.SaveRectangleAsync(rectangle);
                 return Ok();
             }
             catch (Exception ex)

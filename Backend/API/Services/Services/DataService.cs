@@ -13,23 +13,23 @@ namespace Services.Services
 {
     public class DataService : IDataService
     {
-        private readonly IRectangleRepository _rectangleRepository;
+        private readonly IRepositoryManager _repositoryManager;
         private readonly IMapper _mapper;
-        public DataService(IRectangleRepository rectangleRepository, IMapper mapper)
+        public DataService(IRepositoryManager repositoryManager, IMapper mapper)
         {
-            _rectangleRepository = rectangleRepository;
+            _repositoryManager = repositoryManager;
             _mapper = mapper;
         }
-        public async Task<RectangleResponse> GetRectangle()
+        public async Task<RectangleResponse> GetRectangleAsync()
         {
-            var rectangle = await _rectangleRepository.GetRectangle();
+            var rectangle = await _repositoryManager.RectangleRepository.GetRectangleAsync();
             return _mapper.Map<RectangleResponse>(rectangle);
         }
 
-        public async Task SaveRectangle(RectangleForm inputRectangle)
+        public async Task SaveRectangleAsync(RectangleForm inputRectangle)
         {
             var rectangle = _mapper.Map<Rectangle>(inputRectangle);
-            await _rectangleRepository.SaveRectangle(rectangle);
+            await _repositoryManager.RectangleRepository.SaveRectangleAsync(rectangle);
         }
     }
 }

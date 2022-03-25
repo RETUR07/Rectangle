@@ -53,7 +53,8 @@ export class RectangleComponent {
 
   onMouseLeave(event: any)
   {
-    this.onMouseUp(event);
+    if(this.IsEdited)
+      this.onMouseUp(event);
   }
 
   onMouseDown(event: any)
@@ -64,6 +65,8 @@ export class RectangleComponent {
     {
       this.rectangle.rectX1 = event.clientX;
       this.rectangle.rectY1 = event.clientY;
+      this.rectangle.rectX2 = event.clientX;
+      this.rectangle.rectY2 = event.clientY;
     }
     else{
       this.xResizeStart = event.clientX;

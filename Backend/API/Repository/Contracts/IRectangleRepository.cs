@@ -9,7 +9,7 @@ namespace Repository.Contracts
 {
     public interface IRectangleRepository
     {
-        public Task<Rectangle> GetRectangle();
-        public Task SaveRectangle(Rectangle rectangle);
+        Task<Rectangle> GetRectangleAsync();
+        Task SaveRectangleAsync(Rectangle rectangle);
     }
 }
