@@ -2,17 +2,7 @@
             [width]='canvasX'
             [height]='canvasY'
       >
-      <svg:rect
-            [attr.x]="rectangle.getX()" 
-            [attr.y]="rectangle.getY()" 
-            [attr.width]="rectangle.getWidth()" 
-            [attr.height]="rectangle.getHeight()" 
-            fill="white" 
-            
-            stroke="black" 
-            fill-opacity="0.1" 
-            stroke-opacity="1" >
-      </rect>
-      <svg:text [attr.x]="rectangle.getX()" [attr.y]="rectangle.getY()" class="small">{{rectangle.getPerimeter()}}</svg:text>
+      <svg:text [attr.x]="rectangle.getX()" [attr.y]="rectangle.getY()-5" class="small">{{rectangle.getPerimeter()}}</svg:text>
+      <svg:path [attr.d]="GetRectPath()" fill='none' stroke="black" opacity="5"/>
 </app-canvas>
 

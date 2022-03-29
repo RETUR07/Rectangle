@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Rectangle } from 'src/app/models/rectangle.model';
 import { RectangleHttpService } from 'src/app/services/rectangleHttpService';
 
@@ -55,6 +55,15 @@ export class RectangleComponent {
     this.rectangleCreated = true;
     this.IsEdited = false;
     this.http.SaveRectangle(this.rectangle).subscribe();
+  }
+
+
+  GetRectPath():string {
+    return 'M ' + this.rectangle.getX() + ' ' + this.rectangle.getY() + 
+          ' L ' + this.rectangle.getX() + ' ' + (this.rectangle.getY() + this.rectangle.getHeight()) + 
+          ' L ' + (this.rectangle.getX() + this.rectangle.getWidth()) + ' ' + (this.rectangle.getY() + this.rectangle.getHeight()) + 
+          ' L ' + (this.rectangle.getX() + this.rectangle.getWidth()) + ' ' + (this.rectangle.getY()) + ' Z';
+          
   }
 
   @HostListener('document:mousemove', ['$event'])
@@ -160,7 +169,7 @@ export class RectangleComponent {
         }
 
         this.xResizeStart = event.clientX;
-        this.yResizeStart = event.clientY;
+        this.yResizeStart = event.clientY; 
       }
   }
 }

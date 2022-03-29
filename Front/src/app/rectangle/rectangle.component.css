@@ -1,0 +1,7 @@
+path:hover {
+    opacity: 1;
+    stroke: gray;
+}
+::selection {
+    background: transparent;
+ }
