@@ -10,34 +10,35 @@ namespace Repository.Services
 {
     public class FileManager : IFileManager
     {
-        private readonly object _fileAccess = new object();
-
+        private readonly Mutex _fileAccess = new();
+        private int readerCounter = 0;
         public async Task<string> ReadFileAsync()
         {
+            if(readerCounter == 0)_fileAccess.WaitOne();
+            readerCounter++;
             string str;
-            lock (_fileAccess)
+            using (StreamReader r = new StreamReader(JSONConfig.FileName))
             {
-                using (StreamReader r = new StreamReader(JSONConfig.FileName))
-                {
-                    str = r.ReadToEnd();
-                };
-            }
+                str = r.ReadToEnd();
+            };
+            readerCounter--;
+            if (readerCounter == 0) _fileAccess.ReleaseMutex();
             return str;
         }
 
         public async Task WriteFileAsync(string str)
         {
-            lock (_fileAccess)
+            _fileAccess.WaitOne();
+            using (FileStream fileStream = File.Open(JSONConfig.FileName, FileMode.Create))
             {
-                using (FileStream fileStream = File.Open(JSONConfig.FileName, FileMode.Create))
+                using (StreamWriter w = new StreamWriter(fileStream))
                 {
-                    using (StreamWriter w = new StreamWriter(fileStream))
-                    {
-                        w.WriteLine(str);
-                        w.Flush();
-                    };
+                    w.WriteLine(str);
+                    w.Flush();
                 };
-            }
+            };
+            _fileAccess.ReleaseMutex();
+            
         }
     }
 }
